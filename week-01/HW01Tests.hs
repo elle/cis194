@@ -39,7 +39,7 @@ testDoubleEveryOther (n, result) = doubleEveryOther n == result
 
 ex3Tests :: [Test]
 ex3Tests = [ Test "doubleEveryOther test" testDoubleEveryOther
-             [([4, 9, 5, 5], [4, 18, 5, 10]), ([0, 0], [0, 0])]
+             [ ([4, 9, 5, 5], [4, 18, 5, 10]), ([0, 0], [0, 0]) ]
            ]
 
 -- Exercise 4 -----------------------------------------
@@ -49,7 +49,7 @@ testSumDigits (n, d) = sumDigits n == d
 
 ex4Tests :: [Test]
 ex4Tests = [ Test "sumDigits test" testSumDigits
-             [([10, 5, 18, 4], 19), ([1], 1), ([], 0)]
+             [ ([10, 5, 18, 4], 19), ([1], 1), ([], 0) ]
            ]
 
 -- Exercise 5 -----------------------------------------
@@ -59,13 +59,18 @@ testLuhn (n, d) = luhn n == d
 
 ex5Tests :: [Test]
 ex5Tests = [ Test "luhn test" testLuhn
-             [(5594589764218858, True), (1234567898765432, False)]
+             [ (5594589764218858, True), (1234567898765432, False) ]
            ]
 
 -- Exercise 6 -----------------------------------------
 
+testHanoi :: (Integer, Peg, Peg, Peg, [Move]) -> Bool
+testHanoi (n, a, b, c, result) = hanoi n a b c == result
+
 ex6Tests :: [Test]
-ex6Tests = []
+ex6Tests = [ Test "hanoi test" testHanoi
+             [ (2, "a", "b", "c", [("a", "c"), ("a", "b"), ("c", "b")]) ]
+           ]
 
 -- All Tests ------------------------------------------
 

@@ -39,11 +39,15 @@ sumDigits x = sum(concat(map toRevDigits x))
 luhn :: Integer -> Bool
 luhn x = (lastDigit . sumDigits . doubleEveryOther . toRevDigits) x == 0
 
+
 -- Exercise 6 -----------------------------------------
 
 -- Towers of Hanoi for three pegs
 type Peg = String
 type Move = (Peg, Peg)
 
+-- number of moves: (2^n - 1)
+
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi = undefined
+hanoi 0 _ _ _ = []
+hanoi n a b c = hanoi (n-1) a c b ++ [(a,b)] ++ hanoi (n-1) c b a
