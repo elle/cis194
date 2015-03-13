@@ -23,17 +23,33 @@ colors = [Red, Green, Blue, Yellow, Orange, Purple]
 
 -- Get the number of exact matches between the actual code and the guess
 exactMatches :: Code -> Code -> Int
-exactMatches = undefined
+exactMatches xs ys = length $ filter pairMatch $ zip xs ys
 
+pairMatch :: (Peg, Peg) -> Bool
+pairMatch (a, b) = a == b
 -- Exercise 2 -----------------------------------------
 
 -- For each peg in xs, count how many times is occurs in ys
 countColors :: Code -> [Int]
-countColors = undefined
+-- countColors xs = map (\p -> countColor p xs)
+-- countColors xs = map countColor p  xs
+-- countColors xs = [countColor p xs | p <- colors]
+countColors xs = foldr (accumulateColor xs) [] colors
+
+accumulateColor :: Code -> Peg -> [Int] -> [Int]
+accumulateColor c p a = (countColor p c):a
+
+countColor :: Peg -> Code -> Int
+countColor p xs = length $ filter (== p) xs
 
 -- Count number of matches between the actual code and the guess
 matches :: Code -> Code -> Int
-matches = undefined
+matches xs ys = sum $ findMins (countColors xs) (countColors ys)
+
+findMins :: [Int] -> [Int] -> [Int]
+findMins [] _ = [0]
+findMins _ [] = [0]
+findMins (x:xs) (y:ys) = (min x y):findMins xs ys
 
 -- Exercise 3 -----------------------------------------
 
